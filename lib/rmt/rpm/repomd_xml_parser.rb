@@ -1,4 +1,4 @@
-class RMT::Rpm::RepomdXmlParser < RMT::Rpm::BaseParser
+class RepomdParser::RepomdXmlParser < RepomdParser::BaseParser
 
   def parse
     xml = Nokogiri::XML(File.open(@filename))
@@ -15,7 +15,7 @@ class RMT::Rpm::RepomdXmlParser < RMT::Rpm::BaseParser
         end
       end
 
-      @referenced_files << RMT::Rpm::FileEntry.new(
+      @referenced_files << RepomdParser::Package.new(
         hash[:location][:href],
         hash[:checksum][:type],
         hash[:checksum][:value],

@@ -1,1 +1,1 @@
-RMT::Rpm::FileEntry = Struct.new(:location, :checksum_type, :checksum, :type)
+RepomdParser::Package = Struct.new(:location, :checksum_type, :checksum, :type)

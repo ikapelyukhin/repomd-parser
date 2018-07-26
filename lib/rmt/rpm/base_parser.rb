@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'zlib'
 
-class RMT::Rpm::BaseParser < Nokogiri::XML::SAX::Document
+class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
 
   attr_reader :referenced_files
 

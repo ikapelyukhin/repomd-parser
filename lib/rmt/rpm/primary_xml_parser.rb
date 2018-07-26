@@ -1,4 +1,4 @@
-class RMT::Rpm::PrimaryXmlParser < RMT::Rpm::BaseParser
+class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
 
   def initialize(filename, mirror_src = false)
     super(filename)
@@ -28,7 +28,7 @@ class RMT::Rpm::PrimaryXmlParser < RMT::Rpm::BaseParser
   def end_element(name)
     if (name == 'package')
       unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RMT::Rpm::FileEntry.new(
+        @referenced_files << RepomdParser::Package.new(
           @package[:location],
           @package[:checksum_type],
           @package[:checksum],

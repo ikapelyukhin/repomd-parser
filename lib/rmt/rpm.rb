@@ -1,6 +1,4 @@
-module RMT
-  module Rpm
-  end
+module RepomdParser
 end
 
 require_relative 'rpm/file_entry'

@@ -1,4 +1,4 @@
-class RMT::Rpm::DeltainfoXmlParser < RMT::Rpm::BaseParser
+class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
 
   def initialize(filename, mirror_src = false)
     super(filename)
@@ -32,7 +32,7 @@ class RMT::Rpm::DeltainfoXmlParser < RMT::Rpm::BaseParser
   def end_element(name)
     if (name == 'delta')
       unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RMT::Rpm::FileEntry.new(
+        @referenced_files << RepomdParser::Package.new(
           @delta[:location],
           @delta[:checksum_type],
           @delta[:checksum],
