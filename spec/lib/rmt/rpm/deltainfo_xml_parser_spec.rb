@@ -1,4 +1,4 @@
-require 'rmt/rpm'
+require 'repomd_parser'
 
 RSpec.describe RepomdParser::DeltainfoXmlParser do
   let(:parser) do

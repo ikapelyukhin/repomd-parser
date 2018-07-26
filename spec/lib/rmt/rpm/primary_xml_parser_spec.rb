@@ -1,4 +1,4 @@
-require 'rmt/rpm'
+require 'repomd_parser'
 
 RSpec.describe RepomdParser::PrimaryXmlParser do
   describe '#parse' do
