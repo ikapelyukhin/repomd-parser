@@ -31,29 +31,27 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
       ]
     end
 
-    before { parser.parse }
-
     context 'gzipped XML' do
-      let(:parser) do
+      let(:parsed_files) do
         described_class.new(
           file_fixture('dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml.gz')
-        )
+        ).parse
       end
 
       it 'references rpm files' do
-        expect(parser.referenced_files).to eq(expected_result)
+        expect(parsed_files).to eq(expected_result)
       end
     end
 
     context 'plain XML' do
-      let(:parser) do
+      let(:parsed_files) do
         described_class.new(
           file_fixture('dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml')
-        )
+        ).parse
       end
 
       it 'references rpm files' do
-        expect(parser.referenced_files).to eq(expected_result)
+        expect(parsed_files).to eq(expected_result)
       end
     end
   end

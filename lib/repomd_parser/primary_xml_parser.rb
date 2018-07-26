@@ -15,6 +15,8 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
       @package[:location] = get_attribute(attrs, 'href')
     elsif (name == 'checksum')
       @package[:checksum_type] = get_attribute(attrs, 'type')
+    elsif (name == 'size')
+      @package[:package_size] = get_attribute(attrs, 'package')
     end
   end
 
@@ -32,7 +34,9 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
           @package[:location],
           @package[:checksum_type],
           @package[:checksum],
-          :rpm
+          :rpm,
+          @package[:package_size],
+          @package[:arch], # FIXME: keyword arguments
         )
       end
     end

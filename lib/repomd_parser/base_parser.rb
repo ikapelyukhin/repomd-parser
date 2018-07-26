@@ -3,8 +3,6 @@ require 'zlib'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
 
-  attr_reader :referenced_files
-
   def initialize(filename)
     @referenced_files = []
     @filename = filename
@@ -20,6 +18,8 @@ class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
         Nokogiri::XML::SAX::Parser.new(self).parse(fh)
       end
     end
+
+    @referenced_files
   end
 
   protected

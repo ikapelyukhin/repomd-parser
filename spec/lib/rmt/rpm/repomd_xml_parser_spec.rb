@@ -1,12 +1,10 @@
 require 'repomd_parser'
 
 RSpec.describe RepomdParser::RepomdXmlParser do
-  let(:parser) { described_class.new(file_fixture('dummy_repo/repodata/repomd.xml')) }
-
-  before { parser.parse }
+  let(:parsed_files) { described_class.new(file_fixture('dummy_repo/repodata/repomd.xml')).parse }
 
   it 'references repodata files' do
-    expect(parser.referenced_files).to eq [
+    expect(parsed_files).to eq [
       RepomdParser::Package.new(
         'repodata/837fb50abc9680b1e11e050901a56721855a5e854e85e46ceaad2c6816297e69-filelists.xml.gz',
         'sha256',

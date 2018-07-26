@@ -1,16 +1,14 @@
 require 'repomd_parser'
 
 RSpec.describe RepomdParser::DeltainfoXmlParser do
-  let(:parser) do
+  let(:parsed_files) do
     described_class.new(
       file_fixture('dummy_repo/repodata/a546b430098b8a3fb7d65493a9ce608fafcb32f451d0ce8bf85410191f347cc3-deltainfo.xml.gz')
-    )
+    ).parse
   end
 
-  before { parser.parse }
-
   it 'references drpm files' do
-    expect(parser.referenced_files).to eq [
+    expect(parsed_files).to eq [
     RepomdParser::Package.new(
         'apples-0.1-0.x86_64.drpm',
         'sha256',

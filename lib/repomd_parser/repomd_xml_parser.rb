@@ -1,6 +1,11 @@
-class RepomdParser::RepomdXmlParser < RepomdParser::BaseParser
+class RepomdParser::RepomdXmlParser
+
+  def initialize(filename)
+    @filename = filename
+  end
 
   def parse
+    files = []
     xml = Nokogiri::XML(File.open(@filename))
 
     xml.xpath('/xmlns:repomd/xmlns:data').each do |data_node|
@@ -15,13 +20,15 @@ class RepomdParser::RepomdXmlParser < RepomdParser::BaseParser
         end
       end
 
-      @referenced_files << RepomdParser::Package.new(
+      files << RepomdParser::Package.new(
         hash[:location][:href],
         hash[:checksum][:type],
         hash[:checksum][:value],
         type
       )
     end
+
+    files
   end
 
 end
