@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rmt/rpm'
 
 RSpec.describe RMT::Rpm::RepomdXmlParser do
   let(:parser) { described_class.new(file_fixture('dummy_repo/repodata/repomd.xml')) }

@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'zlib'
 
 class RMT::Rpm::BaseParser < Nokogiri::XML::SAX::Document
 

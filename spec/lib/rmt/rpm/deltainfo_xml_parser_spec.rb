@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rmt/rpm'
 
 RSpec.describe RMT::Rpm::DeltainfoXmlParser do
   let(:parser) do
