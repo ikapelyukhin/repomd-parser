@@ -35,7 +35,7 @@ class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
         @referenced_files << RepomdParser::Package.new(
           @delta[:location],
           @delta[:checksum_type],
-          @delta[:checksum],
+          @delta[:checksum], # FIXME: keyword arguments, package size
           :drpm
         )
       end

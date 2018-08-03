@@ -16,7 +16,7 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
     elsif (name == 'checksum')
       @package[:checksum_type] = get_attribute(attrs, 'type')
     elsif (name == 'size')
-      @package[:package_size] = get_attribute(attrs, 'package')
+      @package[:package_size] = get_attribute(attrs, 'package').to_i
     end
   end
 
