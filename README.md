@@ -1,4 +1,4 @@
-# RepomdParser
+# RepomdParser [![Build Status](https://travis-ci.org/ikapelyukhin/repomd-parser.svg?branch=master)](https://travis-ci.org/ikapelyukhin/repomd-parser)
 
 RPM repository metadata parser.
 
@@ -30,4 +30,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/repomd-parser.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ikapelyukhin/repomd-parser.
