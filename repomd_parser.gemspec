@@ -35,5 +35,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.add_dependency 'nokogiri', '~> 1.8', '>= 1.8.4'
-  spec.add_dependency 'typhoeus', '~> 1.3' # FIXME: remove
 end
