@@ -3,10 +3,10 @@ require 'repomd_parser'
 RSpec.describe RepomdParser::PrimaryXmlParser do
   describe '#parse' do
 
-#    .bd23251eecdda9c7fcefad045995a9eaed527d06dd8510cfe2851\", type=:rpm, package_size=1934
-#.8d2b12c780deb080c8a619f3d440b0b50c2c30b5c9350352db463\", type=:rpm, package_size=1950
-#88127b9c746e7772d694055ec255706ececd563fb55d13b01b4f3\", type=:rpm, package_size=1933,
-#e471540ce5105677411035d437a177634a77088dfb73e34461f37\", type=:rpm, package_size=1949,
+#    .bd23251eecdda9c7fcefad045995a9eaed527d06dd8510cfe2851\", type=:rpm, size=1934
+#.8d2b12c780deb080c8a619f3d440b0b50c2c30b5c9350352db463\", type=:rpm, size=1950
+#88127b9c746e7772d694055ec255706ececd563fb55d13b01b4f3\", type=:rpm, size=1933,
+#e471540ce5105677411035d437a177634a77088dfb73e34461f37\", type=:rpm, size=1949,
 
     let(:expected_result) do
       [

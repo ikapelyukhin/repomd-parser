@@ -34,7 +34,7 @@ def make_url(repo_url, path)
 end
 
 def print_repo_stats(repo_url)
-  repo_url += '/' unless repo_url =~ /\/^/
+  repo_url += '/' unless repo_url =~ /\/$/
 
   tmpdir = Dir.mktmpdir
   repomd_file = File.join(tmpdir, 'repomd.xml')
@@ -63,14 +63,13 @@ def print_repo_stats(repo_url)
     rpms = RepomdParser::PrimaryXmlParser.new(filename, true).parse
     rpms.each do |package|
       stats[package[:arch]][:count] += 1
-      stats[package[:arch]][:total_size] += package[:package_size]
+      stats[package[:arch]][:total_size] += package[:size]
     end
   end
 
   pretty_url = URI.parse(repo_url)
   pretty_url.query = nil
 
-  puts
   puts "Statistics for #{pretty_url.to_s}"
   puts
   stats.each { |arch, data| printf "%08s: %06s packages, %6.02f gigabytes\n", arch, data[:count], data[:total_size].to_f / 1024 ** 3 }
@@ -78,5 +77,9 @@ ensure
   FileUtils.rm_r(tmpdir)
 end
 
-print_repo_stats('https://download.opensuse.org/update/leap/42.3/oss/')
-print_repo_stats('http://download.fedoraproject.org/pub/fedora/linux/releases/28/Everything/x86_64/os/')
+if (!ARGV[0] || ARGV[0] == '-h' || ARGV[0] == '--help')
+  puts "Usage: #{$0} REPO_URL"
+  exit 1
+end
+
+print_repo_stats(ARGV[0])

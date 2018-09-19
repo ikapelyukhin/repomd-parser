@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "repomd_parser"
   spec.version       = RepomdParser::VERSION
   spec.authors       = ["Ivan Kapelyukhin"]
-  spec.email         = ["ikapelyukhin@users.noreply.github.com"]
+  spec.email         = ["ikapelyukhin@suse.com"]
 
   spec.summary       = %q{RPM repository metadata (RepoMD) parser}
   spec.homepage      = "https://github.com/ikapelyukhin/repomd-parser"
