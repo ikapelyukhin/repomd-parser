@@ -2,25 +2,67 @@
 
 RPM repository metadata parser.
 
+This gem can parse `repomd.xml`, `primary.xml` and `deltainfo.xml` metadata files of the RPM repository,
+providing a way to get access to the list of packages in the repo and the details of each individual package (name, size, checksum, etc.)
+
 ## Installation
 
-Add this line to your application's Gemfile:
+1. Add `gem 'repomd_parser'` line to your application's Gemfile;
+2. Execute `bundle`.
 
-```ruby
-gem 'repomd_parser'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install repomd_parser
+Alternatively, install as `gem install repomd_parser`.
 
 ## Usage
 
-TODO: Write usage instructions here
+#### RepomdParser::RepomdXmlParser
+
+Parses `repomd.xml` -- the main repository metadata file, which references other metadata files.
+
+`parse` method returns an array of `RepomdParser::Reference`. 
+
+```ruby
+metadata_files = RepomdParser::RepomdXmlParser.new('repomd.xml').parse
+metadata_files.each do |metadata_file|
+  printf "type: %10s, location: %s\n", metadata_file.type, metadata_file.location 
+end
+```
+
+#### RepomdParser::PrimaryXmlParser
+
+Parses `primary.xml`, which contains information about RPM packages in the repository.
+
+`parse` method returns an array of `RepomdParser::Reference`.
+
+```ruby
+rpm_packages = RepomdParser::PrimaryXmlParser.new('primary.xml').parse
+rpm_packages.each do |rpm|
+  printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+end
+```
+
+#### RepomdParser::DeltainfoXmlParser
+
+Parses `deltainfo.xml`, which contains information about delta-RPM packages in the repository.
+
+`parse` method returns an array of `RepomdParser::Reference`.
+
+```ruby
+rpm_packages = RepomdParser::DeltainfoXmlParser.new('deltainfo.xml').parse
+rpm_packages.each do |rpm|
+  printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+end
+```
+
+#### RepomdParser::Reference
+
+Represents a file referenced in the metadata file. Has the following accessors:
+
+* `location`, relative to the root of the repository.
+* `checksum_type`, e.g. SHA1, SHA256, MD5.
+* `checksum`.
+* `type`, type of the file, e.g. `:primary`, `:deltainfo`, `:rpm`, `:drpm`.
+* `size` in bytes.
+* `arch`.
 
 ## Development
 
