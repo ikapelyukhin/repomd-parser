@@ -1,8 +1,7 @@
 class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
 
-  def initialize(filename, mirror_src = false)
+  def initialize(filename)
     super(filename)
-    @mirror_src = mirror_src
   end
 
   def start_element(name, attrs = [])
@@ -34,15 +33,14 @@ class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
 
   def end_element(name)
     if (name == 'delta')
-      unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RepomdParser::Reference.new(
-          location: @delta[:location],
-          checksum_type: @delta[:checksum_type],
-          checksum: @delta[:checksum],
-          type: :drpm,
-          size: @delta[:size].to_i,
-        )
-      end
+      @referenced_files << RepomdParser::Reference.new(
+        location: @delta[:location],
+        checksum_type: @delta[:checksum_type],
+        checksum: @delta[:checksum],
+        type: :drpm,
+        size: @delta[:size].to_i,
+        arch: @package[:arch],
+      )
     end
   end
 
