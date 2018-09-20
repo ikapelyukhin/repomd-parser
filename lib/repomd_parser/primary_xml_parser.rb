@@ -30,13 +30,13 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
   def end_element(name)
     if (name == 'package')
       unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RepomdParser::Package.new(
-          @package[:location],
-          @package[:checksum_type],
-          @package[:checksum],
-          :rpm,
-          @package[:size],
-          @package[:arch], # FIXME: keyword arguments
+        @referenced_files << RepomdParser::Reference.new(
+          location: @package[:location],
+          checksum_type: @package[:checksum_type],
+          checksum: @package[:checksum],
+          type: :rpm,
+          size: @package[:size].to_i,
+          arch: @package[:arch],
         )
       end
     end

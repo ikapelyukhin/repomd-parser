@@ -20,11 +20,12 @@ class RepomdParser::RepomdXmlParser
         end
       end
 
-      files << RepomdParser::Package.new(
-        hash[:location][:href],
-        hash[:checksum][:type],
-        hash[:checksum][:value],
-        type
+      files << RepomdParser::Reference.new(
+        location: hash[:location][:href],
+        checksum_type: hash[:checksum][:type],
+        checksum: hash[:checksum][:value],
+        type: type,
+        size: hash[:size][:value].to_i
       )
     end
 

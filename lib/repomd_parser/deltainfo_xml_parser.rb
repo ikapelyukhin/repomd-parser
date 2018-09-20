@@ -26,17 +26,21 @@ class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
     elsif (@current_node == :checksum)
       @delta[:checksum] ||= ''
       @delta[:checksum] += string.strip
+    elsif (@current_node == :size)
+      @delta[:size] ||= ''
+      @delta[:size] += string.strip
     end
   end
 
   def end_element(name)
     if (name == 'delta')
       unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RepomdParser::Package.new(
-          @delta[:location],
-          @delta[:checksum_type],
-          @delta[:checksum], # FIXME: keyword arguments, package size
-          :drpm
+        @referenced_files << RepomdParser::Reference.new(
+          location: @delta[:location],
+          checksum_type: @delta[:checksum_type],
+          checksum: @delta[:checksum],
+          type: :drpm,
+          size: @delta[:size].to_i,
         )
       end
     end

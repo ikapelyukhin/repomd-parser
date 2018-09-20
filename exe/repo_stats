@@ -62,8 +62,8 @@ def print_repo_stats(repo_url)
 
     rpms = RepomdParser::PrimaryXmlParser.new(filename, true).parse
     rpms.each do |package|
-      stats[package[:arch]][:count] += 1
-      stats[package[:arch]][:total_size] += package[:size]
+      stats[package.arch][:count] += 1
+      stats[package.arch][:total_size] += package.size
     end
   end
 
