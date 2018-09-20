@@ -17,9 +17,8 @@
 
 class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
 
-  def initialize(filename, mirror_src = false)
+  def initialize(filename)
     super(filename)
-    @mirror_src = mirror_src
   end
 
   def start_element(name, attrs = [])
@@ -46,16 +45,14 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
 
   def end_element(name)
     if (name == 'package')
-      unless (@package[:arch] == 'src' && !@mirror_src)
-        @referenced_files << RepomdParser::Reference.new(
-          location: @package[:location],
-          checksum_type: @package[:checksum_type],
-          checksum: @package[:checksum],
-          type: :rpm,
-          size: @package[:size].to_i,
-          arch: @package[:arch],
-        )
-      end
+      @referenced_files << RepomdParser::Reference.new(
+        location: @package[:location],
+        checksum_type: @package[:checksum_type],
+        checksum: @package[:checksum],
+        type: :rpm,
+        size: @package[:size].to_i,
+        arch: @package[:arch],
+      )
     end
   end
 
