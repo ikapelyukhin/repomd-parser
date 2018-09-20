@@ -2,6 +2,8 @@
 
 RPM repository metadata parser.
 
+For tools that use `RepomdParser`, see [repo-tools](https://github.com/ikapelyukhin/repo-tools) repository.
+
 This gem can parse `repomd.xml`, `primary.xml` and `deltainfo.xml` metadata files of the RPM repository,
 providing a way to get access to the list of packages in the repo and the details of each individual package (name, size, checksum, etc.)
 
