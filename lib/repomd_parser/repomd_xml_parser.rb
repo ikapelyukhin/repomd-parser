@@ -42,7 +42,7 @@ class RepomdParser::RepomdXmlParser
         checksum_type: hash[:checksum][:type],
         checksum: hash[:checksum][:value],
         type: type,
-        size: hash[:size][:value].to_i
+        size: hash[:size] ? hash[:size][:value].to_i : 0
       )
     end
 
