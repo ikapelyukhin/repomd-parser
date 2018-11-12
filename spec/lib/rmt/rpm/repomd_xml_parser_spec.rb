@@ -35,4 +35,53 @@ RSpec.describe RepomdParser::RepomdXmlParser do
       )
     ]
   end
+
+  let(:old_style_parsed_files) { described_class.new(file_fixture('old_style_repo/repodata/repomd.xml')).parse }
+
+  it 'handles repomd.xml without size field' do
+    expect(old_style_parsed_files).to eq [
+      RepomdParser::Reference.new(
+        location: 'repodata/filelists.xml.gz',
+        checksum_type: 'sha',
+        checksum: '504bd30dbb050055dc81f3f359b23a0e21f58f35',
+        type: :filelists,
+        size: nil,
+      ),
+      RepomdParser::Reference.new(
+        location: 'repodata/patches.xml',
+        checksum_type: 'sha',
+        checksum: '7903e7dc15859c0fc705f04192ad1a70efb95363',
+        type: :patches,
+        size: nil,
+      ),
+      RepomdParser::Reference.new(
+        location: 'repodata/other.xml.gz',
+        checksum_type: 'sha',
+        checksum: '28cde758a4bbeff4b9d0e32fe4914644147afb1b',
+        type: :other,
+        size: nil,
+      ),
+      RepomdParser::Reference.new(
+        location: 'repodata/primary.xml.gz',
+        checksum_type: 'sha',
+        checksum: 'f4122deb33b18b137646dd86c8fbd6f96ca6cd57',
+        type: :primary,
+        size: nil,
+      ),
+      RepomdParser::Reference.new(
+        location: 'repodata/pattern.xml',
+        checksum_type: 'sha',
+        checksum: '20f45621426fcd74364d6fabe6929d1164797801',
+        type: :pattern,
+        size: nil,
+      ),
+      RepomdParser::Reference.new(
+        location: 'repodata/product.xml',
+        checksum_type: 'sha',
+        checksum: '20f45621426fcd74364d6fabe6929d1164797801',
+        type: :product,
+        size: nil,
+      )
+    ]
+  end
 end
