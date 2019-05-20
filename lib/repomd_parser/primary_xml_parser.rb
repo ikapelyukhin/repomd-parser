@@ -27,12 +27,15 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
       @package = {}
     elsif (name == 'version')
       @package[:version] = get_attribute(attrs, 'ver')
+      @package[:release] = get_attribute(attrs, 'rel')
     elsif (name == 'location')
       @package[:location] = get_attribute(attrs, 'href')
     elsif (name == 'checksum')
       @package[:checksum_type] = get_attribute(attrs, 'type')
     elsif (name == 'size')
       @package[:size] = get_attribute(attrs, 'package').to_i
+    elsif (name == 'time')
+      @package[:build_time] = get_attribute(attrs, 'build')
     end
   end
 
@@ -52,6 +55,10 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
         type: :rpm,
         size: @package[:size].to_i,
         arch: @package[:arch],
+        version: @package[:version],
+        release: @package[:release],
+        name: @package[:name],
+        build_time: Time.at(@package[:build_time].to_i).utc
       )
     end
   end

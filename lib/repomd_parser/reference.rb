@@ -16,9 +16,27 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::Reference
-  attr_accessor :location, :checksum_type, :checksum, :type, :size, :arch
+  attr_accessor :location,
+                :checksum_type,
+                :checksum,
+                :type,
+                :size,
+                :arch,
+                :version,
+                :release,
+                :name,
+                :build_time
 
-  def initialize(location:, checksum_type:, checksum:, type:, size:, arch: nil)
+  def initialize(location:,
+                 checksum_type:,
+                 checksum:,
+                 type:,
+                 size:,
+                 arch: nil,
+                 version: nil,
+                 release: nil,
+                 name: nil,
+                 build_time: nil)
     local_variables.each do |local_var|
       method = "#{local_var}="
       send(method, binding.local_variable_get(local_var)) if (respond_to?(method))
