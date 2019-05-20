@@ -66,6 +66,13 @@ Represents a file referenced in the metadata file. Has the following accessors:
 * `size` in bytes.
 * `arch`.
 
+RPM and DRPM files additionally have the following attributes:
+
+* `name`.
+* `version`.
+* `release`.
+* `build_time`.
+
 ## Caveats
 
 * Relies on the file name to determine if the file is compressed (automatically decompresses `.gz` files)

@@ -39,7 +39,7 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           name: 'oranges',
           version: '0.1',
           release: '0',
-          build_time: Time.parse('2017-07-19 08:38:03 UT')
+          build_time: Time.parse('2017-07-19 08:38:03 UTC')
         ),
         RepomdParser::Reference.new(
           location: 'oranges-0.2-0.x86_64.rpm',
