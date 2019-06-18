@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    repomd_parser (0.1.3)
-      nokogiri (~> 1.8, >= 1.8.5)
+    repomd_parser (0.1.4)
+      nokogiri (~> 1.8)
 
 GEM
   remote: https://rubygems.org/
