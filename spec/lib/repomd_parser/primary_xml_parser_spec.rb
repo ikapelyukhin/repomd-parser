@@ -13,6 +13,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           size: 1934,
           arch: 'x86_64',
           name: 'apples',
+          summary: 'Apples dummy RPM',
+          description: 'Dummy apples RPM',
+          license: 'Public',
           version: '0.1',
           release: '0',
           build_time: Time.parse('2017-07-19 08:34:13 UTC')
@@ -25,6 +28,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           size: 1950,
           arch: 'x86_64',
           name: 'apples',
+          summary: 'Apples dummy RPM',
+          description: 'Dummy apples RPM',
+          license: 'Public',
           version: '0.2',
           release: '0',
           build_time: Time.parse('2017-07-19 08:35:44 UTC')
@@ -37,6 +43,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           size: 1933,
           arch: 'x86_64',
           name: 'oranges',
+          summary: 'Oranges dummy RPM',
+          description: 'Dummy oranges RPM',
+          license: 'Public',
           version: '0.1',
           release: '0',
           build_time: Time.parse('2017-07-19 08:38:03 UTC')
@@ -49,6 +58,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           size: 1949,
           arch: 'x86_64',
           name: 'oranges',
+          summary: 'Oranges dummy RPM',
+          description: 'Dummy oranges RPM',
+          license: 'Public',
           version: '0.2',
           release: '0',
           build_time: Time.parse('2017-07-19 08:39:19 UTC')
