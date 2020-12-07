@@ -40,7 +40,7 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
   end
 
   def characters(string)
-    if (%i[name arch checksum summary description].include? @current_node)
+    if (%i[name arch checksum summary description rpm:license].include? @current_node)
       @package[@current_node] ||= ''
       @package[@current_node] += string.strip
     end
@@ -60,6 +60,7 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
         name: @package[:name],
         summary: @package[:summary],
         description: @package[:description],
+        license: @package[:"rpm:license"],
         build_time: Time.at(@package[:build_time].to_i).utc
       )
     end
