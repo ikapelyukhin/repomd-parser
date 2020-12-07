@@ -25,6 +25,8 @@ class RepomdParser::Reference
                 :version,
                 :release,
                 :name,
+                :summary,
+                :description,
                 :build_time
 
   def initialize(location:,
@@ -36,6 +38,8 @@ class RepomdParser::Reference
                  version: nil,
                  release: nil,
                  name: nil,
+                 summary: nil,
+                 description: nil,
                  build_time: nil)
     local_variables.each do |local_var|
       method = "#{local_var}="
