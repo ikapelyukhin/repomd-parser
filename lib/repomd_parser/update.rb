@@ -15,14 +15,27 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-module RepomdParser
-end
+class RepomdParser::Update
+  attr_accessor :id,
+                :title,
+                :description,
+                :severity,
+                :type,
+                :version,
+                :issued,
+                :packages
 
-require 'repomd_parser/version'
-require 'repomd_parser/reference'
-require 'repomd_parser/update'
-require 'repomd_parser/base_parser'
-require 'repomd_parser/repomd_xml_parser'
-require 'repomd_parser/deltainfo_xml_parser'
-require 'repomd_parser/primary_xml_parser'
-require 'repomd_parser/updateinfo_xml_parser'
+  def initialize(id:,
+                 title:,
+                 description:,
+                 severity:,
+                 type:,
+                 version:,
+                 issued:,
+                 packages:)
+    local_variables.each do |local_var|
+      method = "#{local_var}="
+      send(method, binding.local_variable_get(local_var)) if (respond_to?(method))
+    end
+  end
+end

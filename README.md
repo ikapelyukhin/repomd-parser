@@ -55,6 +55,24 @@ rpm_packages.each do |rpm|
 end
 ```
 
+#### RepomdParser::UpdateinfoXmlParser
+
+Parses `updateinfo.xml`, which contains information about updates (patches) in the repository.
+
+`parse` method returns an array of `RepomdParser::Update` objects, each having a `packages` method returning an array of `RepomdParser::Reference` objects, representing the updated RPM packages.
+
+```ruby
+patches = RepomdParser::UpdateinfoXmlParser.new('updateinfo.xml').parse
+
+patches.each do |patch|
+  printf "title: %8s, description: %s\n", patch.title, patch.description
+
+  patch.packages.each do |rpm|
+    printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+  end
+end
+```
+
 #### RepomdParser::Reference
 
 Represents a file referenced in the metadata file. Has the following accessors:
@@ -72,6 +90,18 @@ RPM and DRPM files additionally have the following attributes:
 * `version`.
 * `release`.
 * `build_time`.
+
+#### RepomdParser::Update
+
+Represents an update, including the RPM packages that got updated:
+
+* `id`, a unique identifier for this update
+* `title`, a string summarizing the update
+* `description`, a more detailed description of this update
+* `severity`, e.g. Moderate, Critical
+* `type`, e.g. enhancement, security
+* `issued`, date and time this update was issued
+* `packages`, list of updated packages, represented as `RepomdParser::Reference` instances
 
 ## Caveats
 
