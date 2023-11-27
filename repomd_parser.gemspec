@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.16.1'
 
   spec.add_dependency 'nokogiri', '~> 1.8'
+  spec.add_dependency 'zstd-ruby', '~> 1.3', '>= 1.3.5.0'
 end

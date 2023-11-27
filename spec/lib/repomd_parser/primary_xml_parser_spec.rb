@@ -68,6 +68,14 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
       ]
     end
 
+    context 'zstandard XML' do
+      let(:parsed_files) { described_class.new(file_fixture('primary.xml.zst')).parse }
+
+      it 'references rpm files and decompresses on the file' do
+        expect(parsed_files).to eq(expected_result)
+      end
+    end
+
     context 'gzipped XML' do
       let(:parsed_files) do
         described_class.new(
