@@ -27,17 +27,17 @@ class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
   end
 
   def parse
-    Nokogiri::XML::SAX::Parser.new(self).parse(data_from_filename)
+    Nokogiri::XML::SAX::Parser.new(self).parse(get_file_io_class.open(@filename))
     @referenced_files
   end
 
   protected
 
-  def data_from_filename
+  def get_file_io_class
     case File.extname(@filename)
-    when '.gz' then Zlib::GzipReader.open(@filename)
-    when '.zst' then Zstd.decompress(File.open(@filename).read)
-    else File.open(@filename)
+    when '.gz' then Zlib::GzipReader
+    when '.zst' then RepomdParser::ZstdReader
+    else File
     end
   end
 
