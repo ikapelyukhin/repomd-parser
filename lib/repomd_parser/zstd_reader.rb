@@ -23,7 +23,7 @@ class RepomdParser::ZstdReader < File
   end
 
   def read(len = nil, out = nil)
-    if @buffer.size < len and not self.eof
+    while @buffer.size < len and not self.eof
       @buffer << @stream.decompress(super(len))
     end
 
