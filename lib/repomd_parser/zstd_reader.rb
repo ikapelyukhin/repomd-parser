@@ -1,5 +1,5 @@
 # repomd_parser -- Ruby gem to parse RPM repository metadata
-# Copyright (C) 2018  Ivan Kapelyukhin, SUSE Linux GmbH
+# Copyright (C) 2024 Ivan Kapelyukhin
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,27 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-module RepomdParser
+class RepomdParser::ZstdReader < File
+  def initialize(*args)
+    super(*args)
+    @stream = Zstd::StreamingDecompress.new
+    @buffer = ""
+  end
+
+  def read(len = nil, out = nil)
+    while @buffer.size < len and not self.eof
+      @buffer << @stream.decompress(super(len))
+    end
+
+    if @buffer.size > len
+      out = @buffer[0..len]
+      @buffer = @buffer[len..-1]
+    else
+      out = @buffer
+      @buffer = ""
+    end
+
+    return out
+  end
 end
 
-require 'repomd_parser/version'
-require 'repomd_parser/reference'
-require 'repomd_parser/base_parser'
-require 'repomd_parser/repomd_xml_parser'
-require 'repomd_parser/deltainfo_xml_parser'
-require 'repomd_parser/primary_xml_parser'
-require 'repomd_parser/zstd_reader'
