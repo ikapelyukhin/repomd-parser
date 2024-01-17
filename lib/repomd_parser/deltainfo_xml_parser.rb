@@ -56,7 +56,7 @@ class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
         checksum: @delta[:checksum],
         type: :drpm,
         size: @delta[:size].to_i,
-        arch: @package[:arch],
+        arch: @package[:arch]
       )
     end
   end
