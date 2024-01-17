@@ -1,4 +1,4 @@
-# RepomdParser [![Build Status](https://travis-ci.org/ikapelyukhin/repomd-parser.svg?branch=master)](https://travis-ci.org/ikapelyukhin/repomd-parser)
+# RepomdParser
 
 RPM repository metadata parser.
 
@@ -75,7 +75,7 @@ RPM and DRPM files additionally have the following attributes:
 
 ## Caveats
 
-* Relies on the file name to determine if the file is compressed (automatically decompresses `.gz` files)
+* Relies on the file extension to determine if the file is compressed (automatically decompresses `.gz` and `.zst` files)
 
 ## Development
 
