@@ -21,18 +21,19 @@ require 'zstd-ruby'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
   def initialize(filename)
+    super()
     @referenced_files = []
     @filename = filename
   end
 
   def parse
-    Nokogiri::XML::SAX::Parser.new(self).parse(get_file_io_class.open(@filename))
+    Nokogiri::XML::SAX::Parser.new(self).parse(file_io_class.open(@filename))
     @referenced_files
   end
 
   protected
 
-  def get_file_io_class
+  def file_io_class
     case File.extname(@filename)
     when '.gz' then Zlib::GzipReader
     when '.zst' then RepomdParser::ZstdReader

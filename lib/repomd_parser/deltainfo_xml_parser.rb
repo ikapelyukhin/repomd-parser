@@ -18,26 +18,28 @@
 class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
   def start_element(name, attrs = [])
     @current_node = name.to_sym
-    if name == 'newpackage'
+    case name
+    when 'newpackage'
       @package = {}
       @package[:version] = get_attribute(attrs, 'version')
       @package[:name] = get_attribute(attrs, 'name')
       @package[:arch] = get_attribute(attrs, 'arch')
-    elsif name == 'delta'
+    when 'delta'
       @delta = {}
-    elsif name == 'checksum'
+    when 'checksum'
       @delta[:checksum_type] = get_attribute(attrs, 'type')
     end
   end
 
   def characters(string)
-    if @current_node == :filename
+    case @current_node
+    when :filename
       @delta[:location] ||= ''
       @delta[:location] += string.strip
-    elsif @current_node == :checksum
+    when :checksum
       @delta[:checksum] ||= ''
       @delta[:checksum] += string.strip
-    elsif @current_node == :size
+    when :size
       @delta[:size] ||= ''
       @delta[:size] += string.strip
     end

@@ -18,18 +18,19 @@
 class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
   def start_element(name, attrs = [])
     @current_node = name.to_sym
-    if name == 'package'
+    case name
+    when 'package'
       @package = {}
-    elsif name == 'version'
+    when 'version'
       @package[:version] = get_attribute(attrs, 'ver')
       @package[:release] = get_attribute(attrs, 'rel')
-    elsif name == 'location'
+    when 'location'
       @package[:location] = get_attribute(attrs, 'href')
-    elsif name == 'checksum'
+    when 'checksum'
       @package[:checksum_type] = get_attribute(attrs, 'type')
-    elsif name == 'size'
+    when 'size'
       @package[:size] = get_attribute(attrs, 'package').to_i
-    elsif name == 'time'
+    when 'time'
       @package[:build_time] = get_attribute(attrs, 'build')
     end
   end
