@@ -50,10 +50,10 @@ class RepomdParser::Reference
   end
 
   # Overloaded comparator for specs
-  def ==(obj)
+  def ==(other)
     result = true
     instance_variables.each do |instance_var|
-      result &&= (instance_variable_get(instance_var) == obj.instance_variable_get(instance_var))
+      result &&= (instance_variable_get(instance_var) == other.instance_variable_get(instance_var))
     end
     result
   end

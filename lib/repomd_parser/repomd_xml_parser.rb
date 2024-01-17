@@ -16,7 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::RepomdXmlParser
-
   def initialize(filename)
     @filename = filename
   end
@@ -48,5 +47,4 @@ class RepomdParser::RepomdXmlParser
 
     files
   end
-
 end

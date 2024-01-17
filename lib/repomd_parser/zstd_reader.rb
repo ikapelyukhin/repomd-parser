@@ -23,9 +23,7 @@ class RepomdParser::ZstdReader < File
   end
 
   def read(len = nil, out = nil)
-    while @buffer.size < len and not self.eof
-      @buffer << @stream.decompress(super(len))
-    end
+    @buffer << @stream.decompress(super(len)) while @buffer.size < len and !eof
 
     if @buffer.size > len
       out = @buffer[0..len]
@@ -35,7 +33,6 @@ class RepomdParser::ZstdReader < File
       @buffer = ''
     end
 
-    return out
+    out
   end
 end
-

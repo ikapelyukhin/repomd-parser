@@ -20,7 +20,6 @@ require 'zlib'
 require 'zstd-ruby'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
-
   def initialize(filename)
     @referenced_files = []
     @filename = filename
@@ -44,5 +43,4 @@ class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
   def get_attribute(attributes, name)
     attributes.select { |e| e[0] == name }.first[1]
   end
-
 end

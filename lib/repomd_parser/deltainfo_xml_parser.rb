@@ -16,7 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
-
   def initialize(filename)
     super(filename)
   end
@@ -49,16 +48,15 @@ class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
   end
 
   def end_element(name)
-    if name == 'delta'
-      @referenced_files << RepomdParser::Reference.new(
-        location: @delta[:location],
-        checksum_type: @delta[:checksum_type],
-        checksum: @delta[:checksum],
-        type: :drpm,
-        size: @delta[:size].to_i,
-        arch: @package[:arch]
-      )
-    end
-  end
+    return unless name == 'delta'
 
+    @referenced_files << RepomdParser::Reference.new(
+      location: @delta[:location],
+      checksum_type: @delta[:checksum_type],
+      checksum: @delta[:checksum],
+      type: :drpm,
+      size: @delta[:size].to_i,
+      arch: @package[:arch]
+    )
+  end
 end

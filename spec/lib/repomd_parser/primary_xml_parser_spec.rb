@@ -2,7 +2,6 @@ require 'repomd_parser'
 
 RSpec.describe RepomdParser::PrimaryXmlParser do
   describe '#parse' do
-
     let(:expected_result) do
       [
         RepomdParser::Reference.new(
@@ -37,7 +36,7 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
         ),
         RepomdParser::Reference.new(
           location: 'oranges-0.1-0.x86_64.rpm',
-          checksum_type:'sha256',
+          checksum_type: 'sha256',
           checksum: 'a38de0c943388127b9c746e7772d694055ec255706ececd563fb55d13b01b4f3',
           type: :rpm,
           size: 1933,

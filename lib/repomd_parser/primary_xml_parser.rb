@@ -16,7 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
-
   def initialize(filename)
     super(filename)
   end
@@ -40,30 +39,29 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
   end
 
   def characters(string)
-    if %i[name arch checksum summary description rpm:license].include? @current_node
-      @package[@current_node] ||= ''
-      @package[@current_node] += string.strip
-    end
+    return unless %i[name arch checksum summary description rpm:license].include? @current_node
+
+    @package[@current_node] ||= ''
+    @package[@current_node] += string.strip
   end
 
   def end_element(name)
-    if name == 'package'
-      @referenced_files << RepomdParser::Reference.new(
-        location: @package[:location],
-        checksum_type: @package[:checksum_type],
-        checksum: @package[:checksum],
-        type: :rpm,
-        size: @package[:size].to_i,
-        arch: @package[:arch],
-        version: @package[:version],
-        release: @package[:release],
-        name: @package[:name],
-        summary: @package[:summary],
-        description: @package[:description],
-        license: @package[:"rpm:license"],
-        build_time: Time.at(@package[:build_time].to_i).utc
-      )
-    end
-  end
+    return unless name == 'package'
 
+    @referenced_files << RepomdParser::Reference.new(
+      location: @package[:location],
+      checksum_type: @package[:checksum_type],
+      checksum: @package[:checksum],
+      type: :rpm,
+      size: @package[:size].to_i,
+      arch: @package[:arch],
+      version: @package[:version],
+      release: @package[:release],
+      name: @package[:name],
+      summary: @package[:summary],
+      description: @package[:description],
+      license: @package[:'rpm:license'],
+      build_time: Time.at(@package[:build_time].to_i).utc
+    )
+  end
 end
