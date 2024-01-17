@@ -16,10 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::DeltainfoXmlParser < RepomdParser::BaseParser
-  def initialize(filename)
-    super(filename)
-  end
-
   def start_element(name, attrs = [])
     @current_node = name.to_sym
     if name == 'newpackage'
