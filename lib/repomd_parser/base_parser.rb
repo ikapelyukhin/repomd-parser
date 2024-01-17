@@ -17,7 +17,6 @@
 
 require 'nokogiri'
 require 'zlib'
-require 'zstd-ruby'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
   def initialize(filename)
