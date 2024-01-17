@@ -19,7 +19,7 @@ class RepomdParser::ZstdReader < File
   def initialize(*args)
     super(*args)
     @stream = Zstd::StreamingDecompress.new
-    @buffer = ""
+    @buffer = ''
   end
 
   def read(len = nil, out = nil)
@@ -32,7 +32,7 @@ class RepomdParser::ZstdReader < File
       @buffer = @buffer[len..-1]
     else
       out = @buffer
-      @buffer = ""
+      @buffer = ''
     end
 
     return out
