@@ -45,7 +45,7 @@ class RepomdParser::Reference
                  build_time: nil)
     local_variables.each do |local_var|
       method = "#{local_var}="
-      send(method, binding.local_variable_get(local_var)) if (respond_to?(method))
+      send(method, binding.local_variable_get(local_var)) if respond_to?(method)
     end
   end
 

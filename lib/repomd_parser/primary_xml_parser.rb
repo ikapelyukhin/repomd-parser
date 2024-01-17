@@ -23,31 +23,31 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
 
   def start_element(name, attrs = [])
     @current_node = name.to_sym
-    if (name == 'package')
+    if name == 'package'
       @package = {}
-    elsif (name == 'version')
+    elsif name == 'version'
       @package[:version] = get_attribute(attrs, 'ver')
       @package[:release] = get_attribute(attrs, 'rel')
-    elsif (name == 'location')
+    elsif name == 'location'
       @package[:location] = get_attribute(attrs, 'href')
-    elsif (name == 'checksum')
+    elsif name == 'checksum'
       @package[:checksum_type] = get_attribute(attrs, 'type')
-    elsif (name == 'size')
+    elsif name == 'size'
       @package[:size] = get_attribute(attrs, 'package').to_i
-    elsif (name == 'time')
+    elsif name == 'time'
       @package[:build_time] = get_attribute(attrs, 'build')
     end
   end
 
   def characters(string)
-    if (%i[name arch checksum summary description rpm:license].include? @current_node)
+    if %i[name arch checksum summary description rpm:license].include? @current_node
       @package[@current_node] ||= ''
       @package[@current_node] += string.strip
     end
   end
 
   def end_element(name)
-    if (name == 'package')
+    if name == 'package'
       @referenced_files << RepomdParser::Reference.new(
         location: @package[:location],
         checksum_type: @package[:checksum_type],
