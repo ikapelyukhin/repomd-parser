@@ -15,27 +15,26 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require 'zstd-ruby'
+
 class RepomdParser::ZstdReader < File
   def initialize(*args)
     super(*args)
     @stream = Zstd::StreamingDecompress.new
-    @buffer = ""
+    @buffer = ''
   end
 
   def read(len = nil, out = nil)
-    while @buffer.size < len and not self.eof
-      @buffer << @stream.decompress(super(len))
-    end
+    @buffer << @stream.decompress(super(len)) while @buffer.size < len && !eof
 
     if @buffer.size > len
       out = @buffer[0..len]
       @buffer = @buffer[len..-1]
     else
       out = @buffer
-      @buffer = ""
+      @buffer = ''
     end
 
-    return out
+    out
   end
 end
-

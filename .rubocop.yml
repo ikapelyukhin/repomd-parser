@@ -1,0 +1,19 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  NewCops: enable
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# there's some documentation in the README.md of the git repo, perhaps
+# it should be added as RDoc to the Gem as well, but for now this cop is
+# turned off
+Style/Documentation:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+

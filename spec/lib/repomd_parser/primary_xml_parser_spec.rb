@@ -2,7 +2,6 @@ require 'repomd_parser'
 
 RSpec.describe RepomdParser::PrimaryXmlParser do
   describe '#parse' do
-
     let(:expected_result) do
       [
         RepomdParser::Reference.new(
@@ -37,7 +36,7 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
         ),
         RepomdParser::Reference.new(
           location: 'oranges-0.1-0.x86_64.rpm',
-          checksum_type:'sha256',
+          checksum_type: 'sha256',
           checksum: 'a38de0c943388127b9c746e7772d694055ec255706ececd563fb55d13b01b4f3',
           type: :rpm,
           size: 1933,
@@ -71,7 +70,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
     context 'XML compressed with Zstandard' do
       let(:parsed_files) do
         described_class.new(
-          file_fixture('dummy_repo/repodata/0d499f39e90442b3f052681964debe48ac6e438252cee5fc2dd33002795026f1-primary.xml.zst')
+          file_fixture(
+            'dummy_repo/repodata/0d499f39e90442b3f052681964debe48ac6e438252cee5fc2dd33002795026f1-primary.xml.zst'
+          )
         ).parse
       end
 
@@ -83,7 +84,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
     context 'XML compressed with gzip' do
       let(:parsed_files) do
         described_class.new(
-          file_fixture('dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml.gz')
+          file_fixture(
+            'dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml.gz'
+          )
         ).parse
       end
 
@@ -95,7 +98,9 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
     context 'plain XML' do
       let(:parsed_files) do
         described_class.new(
-          file_fixture('dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml')
+          file_fixture(
+            'dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml'
+          )
         ).parse
       end
 

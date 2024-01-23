@@ -16,54 +16,49 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
-
-  def initialize(filename)
-    super(filename)
-  end
-
   def start_element(name, attrs = [])
     @current_node = name.to_sym
-    if (name == 'package')
+    case name
+    when 'package'
       @package = {}
-    elsif (name == 'version')
+    when 'version'
       @package[:version] = get_attribute(attrs, 'ver')
       @package[:release] = get_attribute(attrs, 'rel')
-    elsif (name == 'location')
+    when 'location'
       @package[:location] = get_attribute(attrs, 'href')
-    elsif (name == 'checksum')
+    when 'checksum'
       @package[:checksum_type] = get_attribute(attrs, 'type')
-    elsif (name == 'size')
+    when 'size'
       @package[:size] = get_attribute(attrs, 'package').to_i
-    elsif (name == 'time')
+    when 'time'
       @package[:build_time] = get_attribute(attrs, 'build')
     end
   end
 
   def characters(string)
-    if (%i[name arch checksum summary description rpm:license].include? @current_node)
-      @package[@current_node] ||= ''
-      @package[@current_node] += string.strip
-    end
+    return unless %i[name arch checksum summary description rpm:license].include? @current_node
+
+    @package[@current_node] ||= ''
+    @package[@current_node] += string.strip
   end
 
   def end_element(name)
-    if (name == 'package')
-      @referenced_files << RepomdParser::Reference.new(
-        location: @package[:location],
-        checksum_type: @package[:checksum_type],
-        checksum: @package[:checksum],
-        type: :rpm,
-        size: @package[:size].to_i,
-        arch: @package[:arch],
-        version: @package[:version],
-        release: @package[:release],
-        name: @package[:name],
-        summary: @package[:summary],
-        description: @package[:description],
-        license: @package[:"rpm:license"],
-        build_time: Time.at(@package[:build_time].to_i).utc
-      )
-    end
-  end
+    return unless name == 'package'
 
+    @referenced_files << RepomdParser::Reference.new(
+      location: @package[:location],
+      checksum_type: @package[:checksum_type],
+      checksum: @package[:checksum],
+      type: :rpm,
+      size: @package[:size].to_i,
+      arch: @package[:arch],
+      version: @package[:version],
+      release: @package[:release],
+      name: @package[:name],
+      summary: @package[:summary],
+      description: @package[:description],
+      license: @package[:'rpm:license'],
+      build_time: Time.at(@package[:build_time].to_i).utc
+    )
+  end
 end
