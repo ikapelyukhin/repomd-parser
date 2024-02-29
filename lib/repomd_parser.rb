@@ -15,9 +15,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-module RepomdParser
-end
-
 require 'repomd_parser/version'
 require 'repomd_parser/reference'
 require 'repomd_parser/base_parser'
@@ -25,3 +22,13 @@ require 'repomd_parser/repomd_xml_parser'
 require 'repomd_parser/deltainfo_xml_parser'
 require 'repomd_parser/primary_xml_parser'
 require 'repomd_parser/zstd_reader'
+
+module RepomdParser
+  def self.decompress_io(io_object, filename)
+    case File.extname(filename)
+    when '.gz' then Zlib::GzipReader.new(io_object)
+    when '.zst' then RepomdParser::ZstdReader.new(io_object)
+    else io_object
+    end
+  end
+end

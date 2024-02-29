@@ -17,15 +17,15 @@
 
 require 'zstd-ruby'
 
-class RepomdParser::ZstdReader < File
-  def initialize(*args)
-    super(*args)
+class RepomdParser::ZstdReader
+  def initialize(io_object)
+    @io = io_object
     @stream = Zstd::StreamingDecompress.new
     @buffer = ''
   end
 
   def read(len = nil, out = nil)
-    @buffer << @stream.decompress(super(len)) while @buffer.size < len && !eof
+    @buffer << @stream.decompress(@io.read(len)) while @buffer.size < len && !@io.eof
 
     if @buffer.size > len
       out = @buffer[0..len]
@@ -36,5 +36,9 @@ class RepomdParser::ZstdReader < File
     end
 
     out
+  end
+
+  def close
+    @io.close
   end
 end
