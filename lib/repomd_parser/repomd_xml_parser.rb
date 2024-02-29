@@ -16,13 +16,15 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class RepomdParser::RepomdXmlParser
-  def initialize(filename)
-    @filename = filename
+  def parse_file(filename)
+    File.open(filename) do |fh|
+      parse(fh)
+    end
   end
 
-  def parse
+  def parse(io_object)
     files = []
-    xml = Nokogiri::XML(File.open(@filename))
+    xml = Nokogiri::XML(io_object)
 
     xml.xpath('/xmlns:repomd/xmlns:data').each do |data_node|
       type = data_node.attr('type').to_sym

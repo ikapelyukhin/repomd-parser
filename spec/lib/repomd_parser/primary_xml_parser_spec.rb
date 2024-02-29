@@ -69,11 +69,11 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
 
     context 'XML compressed with Zstandard' do
       let(:parsed_files) do
-        described_class.new(
+        described_class.new.parse_file(
           file_fixture(
             'dummy_repo/repodata/0d499f39e90442b3f052681964debe48ac6e438252cee5fc2dd33002795026f1-primary.xml.zst'
           )
-        ).parse
+        )
       end
 
       it 'references rpm files' do
@@ -83,11 +83,11 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
 
     context 'XML compressed with gzip' do
       let(:parsed_files) do
-        described_class.new(
+        described_class.new.parse_file(
           file_fixture(
             'dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml.gz'
           )
-        ).parse
+        )
       end
 
       it 'references rpm files' do
@@ -97,11 +97,11 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
 
     context 'plain XML' do
       let(:parsed_files) do
-        described_class.new(
+        described_class.new.parse_file(
           file_fixture(
             'dummy_repo/repodata/abf421e45af5cd686f050bab3d2a98e0a60d1b5ca3b07c86cb948fc1abfa675e-primary.xml'
           )
-        ).parse
+        )
       end
 
       it 'references rpm files' do

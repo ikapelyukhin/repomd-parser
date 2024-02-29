@@ -1,7 +1,7 @@
 require 'repomd_parser'
 
 RSpec.describe RepomdParser::RepomdXmlParser do
-  let(:parsed_files) { described_class.new(file_fixture('dummy_repo/repodata/repomd.xml')).parse }
+  let(:parsed_files) { described_class.new.parse_file(file_fixture('dummy_repo/repodata/repomd.xml')) }
 
   it 'references repodata files' do
     expect(parsed_files).to eq [
@@ -36,7 +36,7 @@ RSpec.describe RepomdParser::RepomdXmlParser do
     ]
   end
 
-  let(:old_style_parsed_files) { described_class.new(file_fixture('old_style_repo/repodata/repomd.xml')).parse }
+  let(:old_style_parsed_files) { described_class.new.parse_file(file_fixture('old_style_repo/repodata/repomd.xml')) }
 
   it 'handles repomd.xml without size field' do
     expect(old_style_parsed_files).to eq [

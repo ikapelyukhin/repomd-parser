@@ -19,26 +19,23 @@ require 'nokogiri'
 require 'zlib'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
-  def initialize(filename)
-    super()
-    @referenced_files = []
-    @filename = filename
+  def parse_file(filename)
+    io = RepomdParser.decompress_io(File.open(filename), filename)
+    parse(io)
+  ensure
+    io.close
   end
 
-  def parse
-    Nokogiri::XML::SAX::Parser.new(self).parse(file_io_class.open(@filename))
-    @referenced_files
+  def parse(io_object)
+    @referenced_files = []
+    Nokogiri::XML::SAX::Parser.new(self).parse(io_object)
+    ret_val = @referenced_files
+    @referenced_files = nil
+
+    ret_val
   end
 
   protected
-
-  def file_io_class
-    case File.extname(@filename)
-    when '.gz' then Zlib::GzipReader
-    when '.zst' then RepomdParser::ZstdReader
-    else File
-    end
-  end
 
   def get_attribute(attributes, name)
     attributes.select { |e| e[0] == name }.first[1]

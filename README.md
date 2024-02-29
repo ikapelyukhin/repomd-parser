@@ -20,10 +20,23 @@ Alternatively, install as `gem install repomd_parser`.
 
 Parses `repomd.xml` -- the main repository metadata file, which references other metadata files.
 
-`parse` method returns an array of `RepomdParser::Reference`. 
+`parse` and `parse_file` methods return an array of `RepomdParser::Reference`.
+
+##### Using the `parse` method
 
 ```ruby
-metadata_files = RepomdParser::RepomdXmlParser.new('repomd.xml').parse
+File.open('repomd.xml') do |fh|
+  metadata_files = RepomdParser::RepomdXmlParser.new.parse(fh)
+  metadata_files.each do |metadata_file|
+    printf "type: %10s, location: %s\n", metadata_file.type, metadata_file.location
+  end
+end
+```
+
+##### Using the `parse_file` method
+
+```ruby
+metadata_files = RepomdParser::RepomdXmlParser.new.parse_file('repomd.xml')
 metadata_files.each do |metadata_file|
   printf "type: %10s, location: %s\n", metadata_file.type, metadata_file.location 
 end
@@ -33,10 +46,23 @@ end
 
 Parses `primary.xml`, which contains information about RPM packages in the repository.
 
-`parse` method returns an array of `RepomdParser::Reference`.
+`parse` and `parse_file` methods return an array of `RepomdParser::Reference`.
+
+##### Using the `parse` method
 
 ```ruby
-rpm_packages = RepomdParser::PrimaryXmlParser.new('primary.xml').parse
+File.open('primary.xml') do |fh|
+  rpm_packages = RepomdParser::PrimaryXmlParser.new.parse(fh)
+  rpm_packages.each do |rpm|
+    printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+  end
+end
+```
+
+##### Using the `parse_file` method
+
+```ruby
+rpm_packages = RepomdParser::PrimaryXmlParser.new.parse_file('primary.xml')
 rpm_packages.each do |rpm|
   printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
 end
@@ -46,14 +72,53 @@ end
 
 Parses `deltainfo.xml`, which contains information about delta-RPM packages in the repository.
 
-`parse` method returns an array of `RepomdParser::Reference`.
+`parse` and `parse_file` methods return an array of `RepomdParser::Reference`.
+
+##### Using the `parse` method
 
 ```ruby
-rpm_packages = RepomdParser::DeltainfoXmlParser.new('deltainfo.xml').parse
+File.open('deltainfo.xml') do |fh|
+  rpm_packages = RepomdParser::DeltainfoXmlParser.new.parse(fh)
+  rpm_packages.each do |rpm|
+    printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+  end
+end
+```
+
+##### Using the `parse_file` method
+
+```ruby
+rpm_packages = RepomdParser::DeltainfoXmlParser.new.parse_file('deltainfo.xml')
 rpm_packages.each do |rpm|
   printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
 end
 ```
+
+#### Compressed file support
+
+The gzip and Zstandard compression formats are supported. The `parse_file`
+method automatically decompresses files based on the filename, e.g.:
+
+```ruby
+rpm_packages = RepomdParser::PrimaryXmlParser.new.parse_file('primary.xml.gz')
+rpm_packages.each do |rpm|
+  printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+end
+```
+
+The `RepomdParser.decompress_io` helper is provided to handle
+decompression of IO objects for use with the `parse` method:
+
+```ruby
+filename = 'primary.xml.gz'
+io = RepomdParser.decompress_io(File.open(filename), filename)
+
+rpm_packages = RepomdParser::PrimaryXmlParser.new.parse(io)
+rpm_packages.each do |rpm|
+  printf "arch: %8s, location: %s\n", rpm.arch, rpm.location
+end
+```
+
 
 #### RepomdParser::Reference
 
@@ -75,7 +140,8 @@ RPM and DRPM files additionally have the following attributes:
 
 ## Caveats
 
-* Relies on the file extension to determine if the file is compressed (automatically decompresses `.gz` and `.zst` files)
+* File extension is used to determine file compression type (expected
+  extensions are `.gz` and `.zst` for gzip and Zstandard respectively)
 
 ## Development
 

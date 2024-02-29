@@ -2,11 +2,11 @@ require 'repomd_parser'
 
 RSpec.describe RepomdParser::DeltainfoXmlParser do
   let(:parsed_files) do
-    described_class.new(
+    described_class.new.parse_file(
       file_fixture(
         'dummy_repo/repodata/a546b430098b8a3fb7d65493a9ce608fafcb32f451d0ce8bf85410191f347cc3-deltainfo.xml.gz'
       )
-    ).parse
+    )
   end
 
   it 'references drpm files' do
