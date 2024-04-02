@@ -16,7 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require 'nokogiri'
-require 'zlib'
 
 class RepomdParser::BaseParser < Nokogiri::XML::SAX::Document
   def parse_file(filename)

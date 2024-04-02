@@ -81,6 +81,20 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
       end
     end
 
+    context 'XML compressed with bz2' do
+      let(:parsed_files) do
+        described_class.new.parse_file(
+          file_fixture(
+            'dummy_repo/repodata/82fc1428462564a58fb95771ddf174e3c041801f8133c2ba5423a856190a722f-primary.xml.bz2'
+          )
+        )
+      end
+
+      it 'references rpm files' do
+        expect(parsed_files).to eq(expected_result)
+      end
+    end
+
     context 'XML compressed with gzip' do
       let(:parsed_files) do
         described_class.new.parse_file(
