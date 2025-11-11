@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    repomd_parser (1.1.0)
+    repomd_parser (1.2.0)
       bzip2-ffi (~> 1.1.1)
       nokogiri (~> 1.8)
       ruby-xz (~> 1.0, >= 1.0.3)
