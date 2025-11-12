@@ -25,6 +25,7 @@ require 'repomd_parser/zstd_reader'
 
 require 'zlib'
 require 'bzip2/ffi'
+require 'xz'
 
 module RepomdParser
   def self.decompress_io(io_object, filename)
@@ -32,6 +33,7 @@ module RepomdParser
     when '.gz' then Zlib::GzipReader.new(io_object)
     when '.zst' then RepomdParser::ZstdReader.new(io_object)
     when '.bz2' then Bzip2::FFI::Reader.open(io_object)
+    when '.xz' then XZ::StreamReader.open(io_object)
     else io_object
     end
   end
