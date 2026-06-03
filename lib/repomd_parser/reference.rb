@@ -28,7 +28,8 @@ class RepomdParser::Reference
                 :summary,
                 :description,
                 :license,
-                :build_time
+                :build_time,
+                :epoch
 
   def initialize(location:,
                  checksum_type:,
@@ -42,7 +43,8 @@ class RepomdParser::Reference
                  summary: nil,
                  description: nil,
                  license: nil,
-                 build_time: nil)
+                 build_time: nil,
+                 epoch: nil)
     local_variables.each do |local_var|
       method = "#{local_var}="
       send(method, binding.local_variable_get(local_var)) if respond_to?(method)

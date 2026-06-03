@@ -24,6 +24,7 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
     when 'version'
       @package[:version] = get_attribute(attrs, 'ver')
       @package[:release] = get_attribute(attrs, 'rel')
+      @package[:epoch] = get_attribute(attrs, 'epoch')
     when 'location'
       @package[:location] = get_attribute(attrs, 'href')
     when 'checksum'
@@ -58,7 +59,8 @@ class RepomdParser::PrimaryXmlParser < RepomdParser::BaseParser
       summary: @package[:summary],
       description: @package[:description],
       license: @package[:'rpm:license'],
-      build_time: Time.at(@package[:build_time].to_i).utc
+      build_time: Time.at(@package[:build_time].to_i).utc,
+      epoch: @package[:epoch]
     )
   end
 end
