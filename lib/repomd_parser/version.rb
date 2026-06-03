@@ -16,5 +16,5 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 module RepomdParser
-  VERSION = '1.2.0'.freeze
+  VERSION = '1.3.0'.freeze
 end

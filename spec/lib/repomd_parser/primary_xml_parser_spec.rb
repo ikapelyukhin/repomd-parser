@@ -17,7 +17,8 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           license: 'Public',
           version: '0.1',
           release: '0',
-          build_time: Time.parse('2017-07-19 08:34:13 UTC')
+          build_time: Time.parse('2017-07-19 08:34:13 UTC'),
+          epoch: '0'
         ),
         RepomdParser::Reference.new(
           location: 'apples-0.2-0.x86_64.rpm',
@@ -32,7 +33,8 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           license: 'Public',
           version: '0.2',
           release: '0',
-          build_time: Time.parse('2017-07-19 08:35:44 UTC')
+          build_time: Time.parse('2017-07-19 08:35:44 UTC'),
+          epoch: '0'
         ),
         RepomdParser::Reference.new(
           location: 'oranges-0.1-0.x86_64.rpm',
@@ -47,7 +49,8 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           license: 'Public',
           version: '0.1',
           release: '0',
-          build_time: Time.parse('2017-07-19 08:38:03 UTC')
+          build_time: Time.parse('2017-07-19 08:38:03 UTC'),
+          epoch: '0'
         ),
         RepomdParser::Reference.new(
           location: 'oranges-0.2-0.x86_64.rpm',
@@ -62,7 +65,8 @@ RSpec.describe RepomdParser::PrimaryXmlParser do
           license: 'Public',
           version: '0.2',
           release: '0',
-          build_time: Time.parse('2017-07-19 08:39:19 UTC')
+          build_time: Time.parse('2017-07-19 08:39:19 UTC'),
+          epoch: '0'
         )
       ]
     end
